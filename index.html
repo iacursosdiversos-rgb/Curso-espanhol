@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espanhol Express - Foco na Prova</title>
+    <style>
+        :root {
+            --bg-main: #f8f9fa;
+            --bg-card: #ffffff;
+            --primary: #d97706;
+            --primary-light: #fef3c7;
+            --secondary: #1e293b;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 90px;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        h1 { font-size: 1.4rem; color: var(--secondary); margin-bottom: 8px; }
+        h2 { font-size: 1.15rem; color: var(--secondary); margin-bottom: 10px; }
+        p { line-height: 1.6; margin-bottom: 12px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            background: var(--bg-main);
+            padding: 12px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .module-item {
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-main);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .quiz-option.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
+        .quiz-option.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
+
+        .dict-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .chat-box {
+            height: 280px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            background: var(--bg-main);
+            margin-bottom: 15px;
+        }
+
+        .msg {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+
+        .msg.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+        }
+
+        .msg.ai {
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        input[type="text"], input[type="password"] {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-tabs">
+        <button type="button" class="tab-btn active" onclick="showTab('inicio', this)">🏠 Início</button>
+        <button type="button" class="tab-btn" onclick="showTab('modulos', this)">📚 Revisão</button>
+        <button type="button" class="tab-btn" onclick="showTab('simulado', this)">✍️ Simulado</button>
+        <button type="button" class="tab-btn" onclick="showTab('dicionario', this)">🔊 Pronúncia</button>
+        <button type="button" class="tab-btn" onclick="showTab('tutor', this)">🤖 Tutor IA</button>
+    </div>
+</header>
+
+<div class="container">
+    <div id="inicio" class="section active">
+        <div class="card">
+            <h1>¡Hola! Vamos gabaritar quarta-feira! 🇪🇸</h1>
+            <p>Seu plano intensivo de revisão está pronto. Avance pelos módulos e teste seus conhecimentos no simulado.</p>
+            
+            <div style="margin-top: 15px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: bold;">
+                    <span>Progresso Geral</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-modules">0/4</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Módulos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-quiz">0</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Acertos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">Quarta</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Prova</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💡 Dica de Ouro para a Prova</h2>
+            <p>Cuidado com os <strong>Falsos Cognatos</strong> (palavras parecidas com o português, mas com sentido oposto). Exemplo: <em>"Embarazada"</em> não significa envergonhada, significa <strong>grávida</strong>!</p>
+            <button type="button" class="btn" onclick="goToModules()">Começar Revisão Agora →</button>
+        </div>
+    </div>
+
+    <div id="modulos" class="section">
+        <div class="card">
+            <h1>📚 Módulos de Revisão Intensiva</h1>
+            <p>Leia os resumos essenciais e marque como concluído para atualizar sua meta.</p>
+        </div>
+
+        <div class="card module-item">
+            <span class="badge">Módulo 1</span>
+            <h2>Artigos e Contrações (O que mais cai)</h2>
+            <p>• <strong>Artigos definidos:</strong> El (o), La (a), Los (os), Las (as).<br>
+               • <strong>Neutro "Lo":</strong> Nunca acompanha substantivo! Usado antes de adjetivos (ex: <em>Lo importante es estudiar</em>).<br>
+               • <strong>Contrações:</strong> Só existem duas no espanhol: <strong>Al</strong> (a + el) e <strong>Del</strong> (de + el).</p>
+            <button type="button" class="btn btn-outline" onclick="completeModule(1, this)">Marcar como concluído</button>
+        </div>
+
+        <div class="card module-item">
+            <span class="badge">Módulo 2</span>
+            <h2>Verbos Essenciais no Presente</h2>
